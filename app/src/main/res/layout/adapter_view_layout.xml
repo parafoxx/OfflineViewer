@@ -1,0 +1,58 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:weightSum="100"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvFileName"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="66.6"
+        android:gravity="center"
+        android:text="TextView1"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="33.3">
+
+        <TextView
+            android:gravity="center"
+            android:text="TextView2"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/tvFileSize"/>
+
+        <TextView
+            android:gravity="center"
+            android:text="TextView3"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/tvCreationDate"
+            android:layout_below="@+id/tvFileSize"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:visibility="invisible"
+            tools:visibility="invisible"
+            android:layout_below="@+id/tvCreationDate"/>
+
+        <Button
+            android:id="@+id/buttonDownloadFile"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="Download"
+            android:layout_below="@+id/progressBar"/>
+
+    </LinearLayout>
+
+</LinearLayout>
