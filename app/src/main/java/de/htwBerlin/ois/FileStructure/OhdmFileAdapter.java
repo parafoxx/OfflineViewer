@@ -66,12 +66,12 @@ public class OhdmFileAdapter extends ArrayAdapter<OhdmFile> {
                 Toast.makeText(getContext(),"Downloading " + fileName,Toast.LENGTH_SHORT).show();
                 ftpTaskFileDownloading.execute(ohdmFile);
                 disableButton(buttonDownloadFile);
-                alertDialog.show();
+                //alertDialog.show(); TODO: show alert when download finished.
             }
         });
 
         tvFileName.setText(fileName);
-        tvFileSize.setText(fileSize + " kB");
+        tvFileSize.setText( (int) (double) (fileSize / 1024) + " MB");
         tvCreationDate.setText(creationDate);
 
         if (isDownloaded)   disableButton(buttonDownloadFile);

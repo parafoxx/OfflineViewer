@@ -22,6 +22,8 @@ import de.htwBerlin.ois.FileStructure.OhdmFile;
 public class FtpTaskFileDownloading extends AsyncTask<OhdmFile, Integer, Long> {
 
     private static final String TAG = "FtpTaskFileListing";
+    private static final String MAP_FILE_PATH = Environment.getExternalStorageDirectory().toString()+"/osmdroid/";
+
     private FTPClient ftpClient;
     private ProgressBar progressBar;
 
@@ -49,23 +51,24 @@ public class FtpTaskFileDownloading extends AsyncTask<OhdmFile, Integer, Long> {
             boolean status = ftpClient.changeWorkingDirectory("ohdm");
             Log.i(TAG, "change working dir to ohdm: " + status);
 
-            File downloadFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), ohdmFile[0].getFilename());
+            File downloadFile = new File(MAP_FILE_PATH, ohdmFile[0].getFilename());
             OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadFile));
             InputStream inputStream = ftpClient.retrieveFileStream(ohdmFile[0].getFilename());
             byte[] bytesArray = new byte[4096];
 
-            Long total = 0L;
-            Long fileSize = ohdmFile[0].getFileSize();
-            int bytesRead = -1;
+            long total = 0;
+            int bytesRead;
+            double progress = 0;
 
             while (-1 != (bytesRead = inputStream.read(bytesArray))) {
-                Log.i(TAG, "bytes read: " + bytesRead);
                 total += bytesRead;
+                progress = ((total * 100) / (ohdmFile[0].getFileSize() * 1024));
                 outputStream.write(bytesArray, 0, bytesRead);
-                publishProgress((int) (total * 100 / fileSize));
+                Log.i(TAG, "Download progress " + (int) progress);
+                publishProgress((int) progress);
             }
 
-            if (ftpClient.completePendingCommand()) Log.i(TAG, "File Download successfull");
+            if (ftpClient.completePendingCommand()) Log.i(TAG, "File Download successful");
 
             outputStream.close();
             inputStream.close();

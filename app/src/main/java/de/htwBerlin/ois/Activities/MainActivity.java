@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.mapsforge.core.model.LatLong;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.datastore.MapDataStore;
@@ -27,7 +28,7 @@ import de.htwBerlin.ois.FileStructure.MapFileSingleton;
 
 public class MainActivity extends Activity {
 
-    private static final String MAP_FILE = "ohdm_extracted.map";
+    private static final String MAP_FILE = "berlin.map";
     private static final String TAG = "MainActivity";
     public static final int READ_EXTERNAL_STORAGE = 112;
 
@@ -51,19 +52,17 @@ public class MainActivity extends Activity {
                 mapView.getModel().displayModel.getTileSize(), 1f,
                 mapView.getModel().frameBufferModel.getOverdrawFactor());
 
-       //MapDataStore mapDataStore = new MapFile(mapFile);
-        File ohdmFile = MapFileSingleton.getInstance().getFile();
 
-        Log.i(TAG, "Using : " + ohdmFile.getName() + " with path " + ohdmFile.getPath());
+        readSDcardDownloadedFiles();
 
-        MapDataStore mapDataStore = new MapFile(ohdmFile);
+        MapDataStore mapDataStore = new MapFile(mapFile);
 
         TileRendererLayer tileRendererLayer = new TileRendererLayer(tileCache, mapDataStore,
                 mapView.getModel().mapViewPosition, AndroidGraphicFactory.INSTANCE);
         tileRendererLayer.setXmlRenderTheme(InternalRenderTheme.DEFAULT);
 
         mapView.getLayerManager().getLayers().add(tileRendererLayer);
-        //mapView.setCenter(new LatLong(52.517037, 13.38886));
+        mapView.setCenter(new LatLong(52.517037, 13.38886));
         mapView.setZoomLevel((byte) 12);
     }
 
@@ -84,7 +83,8 @@ public class MainActivity extends Activity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE);
         } else {
-            this.mapFile = new File(Environment.getExternalStorageDirectory()+"/osmdroid/", MAP_FILE);
+            this.mapFile = MapFileSingleton.getInstance().getFile();
+            //this.mapFile = new File(Environment.getExternalStorageDirectory()+"/osmdroid/", MAP_FILE);
         }
     }
 
