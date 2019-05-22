@@ -17,9 +17,11 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,14 +32,14 @@ import de.htwBerlin.ois.R;
 public class StartActivity extends AppCompatActivity {
 
     private static final String TAG = "StartActivity";
+    private static final String MAP_FILE_PATH = Environment.getExternalStorageDirectory().toString()+"/osmdroid";
+
+    private Set<File> mapFiles;
 
     @BindView(R.id.buttonAboutOHDM) Button buttonAboutOHDM;
     @BindView(R.id.buttonStartNavigation) Button buttonStartNavigation;
     @BindView(R.id.buttonDownloadActivity) Button buttonDownloadActivity;
     @BindView(R.id.mapFileDropDown) Spinner spinnerMapFile;
-
-    private Set<File> mapFiles;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,48 +121,29 @@ public class StartActivity extends AppCompatActivity {
             Log.i(TAG, "added " + file.getName() + " to dropdown");
         }
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        // Sort list
+        List<String> listSorted = list.stream().collect(Collectors.<String>toList());
+        Collections.sort(listSorted, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s1.compareTo(s2);
+            }
+        });
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listSorted);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMapFile.setAdapter(dataAdapter);
     }
 
     protected static Set<File> findMapFiles() {
         Set<File> maps = new HashSet<>();
-        List<StorageUtils.StorageInfo> storageList = StorageUtils.getStorageList();
-        for (StorageUtils.StorageInfo info : storageList){
-            Log.i(TAG, "elements: " + info.getDisplayName());
-        }
 
-        for (int i = 0; i < storageList.size(); i++) {
-            File f = new File(storageList.get(i).path + File.separator + "osmdroid" + File.separator);
-            if (f.exists()) {
-                maps.addAll(scan(f));
-            }
-        }
-
-        File[] downloadFiles = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).listFiles();
-        for (File downloadFile : downloadFiles){
-            Log.i(TAG, "downloadfile: " + downloadFile.getName());
-            if (downloadFile.getName().contains(".map")){
-                maps.add(downloadFile);
+        for (File osmfile : new File(MAP_FILE_PATH).listFiles()){
+            if (osmfile.getName().endsWith(".map")){
+                Log.i(TAG, "osmfile: " + osmfile.getName());
+                maps.add(osmfile);
             }
         }
         return maps;
-    }
-
-    static private Collection<? extends File> scan(File f) {
-        List<File> ret = new ArrayList<>();
-        File[] files = f.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                if (pathname.getName().toLowerCase().endsWith(".map"))
-                    return true;
-                return false;
-            }
-        });
-        if (files != null) {
-            Collections.addAll(ret, files);
-        }
-        return ret;
     }
 }
