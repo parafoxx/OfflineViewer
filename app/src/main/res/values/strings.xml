@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OHDM</string>
+    <string name="app_name">OHDM Offline Viewer</string>
     <string name="OHDM">Open Historical Data Map</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
@@ -24,4 +24,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="Home_Usage">To view your own cards, simply move them to your mobile phone in the "OHDM" folder.
+        Otherwise, you can view and download available maps in the "Maps" tab.</string>
 </resources>

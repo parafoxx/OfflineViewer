@@ -86,7 +86,7 @@ public class MapDowloadActivity extends AppCompatActivity {
                         startActivity(navigationIntent);
                         break;
                     case R.id.nav_home:
-                        Intent startIntent = new Intent(MapDowloadActivity.this, StartActivity.class);
+                        Intent startIntent = new Intent(MapDowloadActivity.this, HomeActivity.class);
                         startActivity(startIntent);
                         break;
                 }

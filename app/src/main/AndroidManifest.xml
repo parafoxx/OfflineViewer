@@ -20,7 +20,7 @@
         <activity android:name=".Activities.BottomNavigationActivity"></activity>
         <activity android:name=".Activities.MapDowloadActivity" />
         <activity android:name=".Activities.AboutActivity" />
-        <activity android:name=".Activities.StartActivity">
+        <activity android:name=".Activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

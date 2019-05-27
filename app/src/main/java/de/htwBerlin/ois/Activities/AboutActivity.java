@@ -6,7 +6,6 @@ import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -46,7 +45,7 @@ public class AboutActivity extends AppCompatActivity {
                         startActivity(downloadIntent);
                         break;
                     case R.id.nav_home:
-                        Intent startIntent = new Intent(AboutActivity.this, StartActivity.class);
+                        Intent startIntent = new Intent(AboutActivity.this, HomeActivity.class);
                         startActivity(startIntent);
                         break;
 

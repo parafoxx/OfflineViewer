@@ -6,16 +6,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-import org.mapsforge.core.model.LatLong;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.datastore.MapDataStore;
@@ -27,8 +22,6 @@ import org.mapsforge.map.android.view.MapView;
 
 import java.io.File;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import de.htwBerlin.ois.FileStructure.MapFileSingleton;
 import de.htwBerlin.ois.R;
 
@@ -46,6 +39,7 @@ public class MainActivity extends Activity {
 
         AndroidGraphicFactory.createInstance(getApplication());
 
+        setContentView(R.layout.activity_main);
         mapView = new MapView(this);
         setContentView(mapView);
 
@@ -107,8 +101,10 @@ public class MainActivity extends Activity {
     }
 
     private void openStartActivity(){
-        Log.i(TAG, "Directing to StartActivity.class");
-        Intent intent = new Intent(this, StartActivity.class);
+        Log.i(TAG, "Directing to HomeActivity.class");
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
+
+
 }
