@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -28,16 +28,14 @@ import org.mapsforge.map.android.view.MapView;
 import java.io.File;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.htwBerlin.ois.FileStructure.MapFileSingleton;
 import de.htwBerlin.ois.R;
 
 public class MainActivity extends Activity {
 
-    private static final String MAP_FILE = "berlin.map";
     private static final String TAG = "MainActivity";
     public static final int READ_EXTERNAL_STORAGE = 112;
-
-    @BindView(R.id.bottom_navigation) BottomNavigationView bottom_navigation;
 
     private MapView mapView = null;
     private File mapFile;
@@ -59,45 +57,20 @@ public class MainActivity extends Activity {
                 mapView.getModel().displayModel.getTileSize(), 1f,
                 mapView.getModel().frameBufferModel.getOverdrawFactor());
 
+        //MapDataStore mapDataStore = new MapFile(mapFile);
+        File ohdmFile = MapFileSingleton.getInstance().getFile();
 
-        readSDcardDownloadedFiles();
+        Log.i(TAG, "Using : " + ohdmFile.getName() + " with path " + ohdmFile.getPath());
 
-        MapDataStore mapDataStore = new MapFile(mapFile);
+        MapDataStore mapDataStore = new MapFile(ohdmFile);
 
         TileRendererLayer tileRendererLayer = new TileRendererLayer(tileCache, mapDataStore,
                 mapView.getModel().mapViewPosition, AndroidGraphicFactory.INSTANCE);
         tileRendererLayer.setXmlRenderTheme(InternalRenderTheme.DEFAULT);
 
         mapView.getLayerManager().getLayers().add(tileRendererLayer);
-        mapView.setCenter(new LatLong(52.517037, 13.38886));
+        //mapView.setCenter(new LatLong(52.517037, 13.38886));
         mapView.setZoomLevel((byte) 12);
-
-        Menu menu = bottom_navigation.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);
-
-        bottom_navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                switch (menuItem.getItemId()){
-                    case R.id.nav_about:
-                        Intent aboutIntent = new Intent(MainActivity.this, AboutActivity.class);
-                        startActivity(aboutIntent);
-                        break;
-                    case R.id.nav_download:
-                        Intent navigationIntent = new Intent(MainActivity.this, MapDowloadActivity.class);
-                        startActivity(navigationIntent);
-                        break;
-                    case R.id.nav_home:
-                        Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
-                        startActivity(startIntent);
-                        break;
-                }
-                return false;
-            }
-        });
-
     }
 
     @Override

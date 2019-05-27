@@ -22,7 +22,7 @@ import de.htwBerlin.ois.FileStructure.OhdmFile;
 public class FtpTaskFileDownloading extends AsyncTask<OhdmFile, Integer, Long> {
 
     private static final String TAG = "FtpTaskFileListing";
-    private static final String MAP_FILE_PATH = Environment.getExternalStorageDirectory().toString()+"/osmdroid/";
+    private static final String MAP_FILE_PATH = Environment.getExternalStorageDirectory().toString() + "/osmdroid/";
 
     private FTPClient ftpClient;
     private ProgressBar progressBar;
@@ -58,7 +58,7 @@ public class FtpTaskFileDownloading extends AsyncTask<OhdmFile, Integer, Long> {
 
             long total = 0;
             int bytesRead;
-            double progress = 0;
+            double progress;
 
             while (-1 != (bytesRead = inputStream.read(bytesArray))) {
                 total += bytesRead;

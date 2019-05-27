@@ -1,8 +1,14 @@
 package de.htwBerlin.ois.Activities;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.bottomnavigation.LabelVisibilityMode;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -25,6 +31,9 @@ public class MapDowloadActivity extends AppCompatActivity {
     private static final String FTP_USER = "ohdm";
     private static final String FTP_PASSWORD = "ohdmapp";
 
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView bottom_navigation;
+
     private ArrayList<OhdmFile> ohdmFiles;
     private FtpEndpointSingleton ftpEndpointSingleton;
 
@@ -46,8 +55,8 @@ public class MapDowloadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_dowload);
-
         ButterKnife.bind(this);
+        bottom_navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
         ohdmFiles = new ArrayList<>();
 
         ftpEndpointSingleton = FtpEndpointSingleton.getInstance();
@@ -57,6 +66,33 @@ public class MapDowloadActivity extends AppCompatActivity {
         ftpEndpointSingleton.setServerPort(FTP_PORT);
 
         ftpTaskFileListing.execute();
+
+        Menu menu = bottom_navigation.getMenu();
+        MenuItem menuItem = menu.getItem(2);
+        menuItem.setChecked(true);
+
+
+        bottom_navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()){
+                    case R.id.nav_about:
+                        Intent aboutIntent = new Intent(MapDowloadActivity.this, AboutActivity.class);
+                        startActivity(aboutIntent);
+                        break;
+                    case R.id.nav_navigation:
+                        Intent navigationIntent = new Intent(MapDowloadActivity.this, MainActivity.class);
+                        startActivity(navigationIntent);
+                        break;
+                    case R.id.nav_home:
+                        Intent startIntent = new Intent(MapDowloadActivity.this, StartActivity.class);
+                        startActivity(startIntent);
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
 }

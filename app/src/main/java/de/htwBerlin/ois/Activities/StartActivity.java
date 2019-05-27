@@ -2,9 +2,14 @@ package de.htwBerlin.ois.Activities;
 
 import android.content.Intent;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.design.bottomnavigation.LabelVisibilityMode;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,21 +41,52 @@ public class StartActivity extends AppCompatActivity {
 
     private Set<File> mapFiles;
 
-    @BindView(R.id.buttonAboutOHDM) Button buttonAboutOHDM;
-    @BindView(R.id.buttonStartNavigation) Button buttonStartNavigation;
-    @BindView(R.id.buttonDownloadActivity) Button buttonDownloadActivity;
     @BindView(R.id.mapFileDropDown) Spinner spinnerMapFile;
+    @BindView(R.id.bottom_navigation) BottomNavigationView bottom_navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            this.getSupportActionBar().hide();
-        } catch (NullPointerException e){}
-
         setContentView(R.layout.activity_start);
         ButterKnife.bind(this);
         fillDropDownFiles();
+
+        bottom_navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+        Menu menu = bottom_navigation.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottom_navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()){
+                    case R.id.nav_about:
+                        Intent aboutIntent = new Intent(StartActivity.this, AboutActivity.class);
+                        startActivity(aboutIntent);
+                        break;
+                    case R.id.nav_navigation:
+                        Log.i(TAG, "Button \"startNavigation\" pressed");
+                        Log.i(TAG, "User has choosen " + spinnerMapFile.getSelectedItem().toString());
+
+                        for (File file : mapFiles){
+                            if (file.getName().equals(spinnerMapFile.getSelectedItem().toString())){
+                                Log.i(TAG, "using " + file.getName() + " as mapfile");
+                                MapFileSingleton mapFile = MapFileSingleton.getInstance();
+                                mapFile.setFile(file);
+                            }
+                        }
+                        Intent navigationIntent = new Intent(StartActivity.this, MainActivity.class);
+                        startActivity(navigationIntent);
+                        break;
+                    case R.id.nav_download:
+                        Intent downloadIntent = new Intent(StartActivity.this, MapDowloadActivity.class);
+                        startActivity(downloadIntent);
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -65,60 +101,16 @@ public class StartActivity extends AppCompatActivity {
         super.onResume();
     }
 
-
-    @OnClick(R.id.buttonAboutOHDM)
-    public void buttonAboutOHDMClicked(View view){
-        Log.i(TAG, "Button \"about\" pressed.");
-        openAboutActivity();
-    }
-
-    @OnClick(R.id.buttonStartNavigation)
-    public void buttonStartNavigationClicked(View view){
-        Log.i(TAG, "Button \"startNavigation\" pressed");
-        Log.i(TAG, "User has choosen " + spinnerMapFile.getSelectedItem().toString());
-
-        for (File file : mapFiles){
-            if (file.getName().equals(spinnerMapFile.getSelectedItem().toString())){
-                Log.i(TAG, "using " + file.getName() + " as mapfile");
-                MapFileSingleton mapFile = MapFileSingleton.getInstance();
-                mapFile.setFile(file);
-            }
-        }
-        openMainActivity();
-    }
-
-    @OnClick(R.id.buttonDownloadActivity)
-    public void buttonMapDownloadActivityClicked(){
-        Log.i(TAG, "Button \"MapDownloadActivity pressed");
-        openMapDownloadActivity();
-    }
-
-    private void openMainActivity(){
-        Log.i(TAG, "Directing to MainActivity.class");
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    private void openAboutActivity(){
-        Log.i(TAG, "Directing to AboutActivity.class");
-        Intent intent = new Intent(this, AboutActivity.class);
-        startActivity(intent);
-    }
-
-    private void openMapDownloadActivity(){
-        Log.i(TAG, "Directing to MapDownloadActivity.class");
-        Intent intent = new Intent(this, MapDowloadActivity.class);
-        startActivity(intent);
-    }
-
     private void fillDropDownFiles(){
         mapFiles = findMapFiles();
         Log.i(TAG, "found " + mapFiles.size() + " .map-files");
         List<String> list = new ArrayList<String>();
 
-        for (File file : mapFiles){
-            list.add(file.getName());
-            Log.i(TAG, "added " + file.getName() + " to dropdown");
+        if (mapFiles.size() > 0) {
+            for (File file : mapFiles) {
+                list.add(file.getName());
+                Log.i(TAG, "added " + file.getName() + " to dropdown");
+            }
         }
 
         // Sort list
@@ -135,14 +127,18 @@ public class StartActivity extends AppCompatActivity {
         spinnerMapFile.setAdapter(dataAdapter);
     }
 
-    protected static Set<File> findMapFiles() {
+    protected Set<File> findMapFiles() {
         Set<File> maps = new HashSet<>();
 
-        for (File osmfile : new File(MAP_FILE_PATH).listFiles()){
-            if (osmfile.getName().endsWith(".map")){
-                Log.i(TAG, "osmfile: " + osmfile.getName());
-                maps.add(osmfile);
+        try {
+            for (File osmfile : new File(MAP_FILE_PATH).listFiles()) {
+                if (osmfile.getName().endsWith(".map")) {
+                    Log.i(TAG, "osmfile: " + osmfile.getName());
+                    maps.add(osmfile);
+                }
             }
+        } catch (NullPointerException e){
+            Log.i(TAG, "no map fiels found.");
         }
         return maps;
     }
