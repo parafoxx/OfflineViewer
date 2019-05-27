@@ -13,6 +13,7 @@
         android:layout_weight="66.6"
         android:gravity="center"
         android:text="TextView1"
+        android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -23,19 +24,23 @@
         android:layout_weight="33.3">
 
         <TextView
+            android:id="@+id/tvFileSize"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="TextView2"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/tvFileSize"/>
+            android:textAlignment="center"
+            android:textStyle="bold" />
 
         <TextView
-            android:gravity="center"
-            android:text="TextView3"
+            android:id="@+id/tvCreationDate"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:id="@+id/tvCreationDate"
-            android:layout_below="@+id/tvFileSize"/>
+            android:layout_below="@+id/tvFileSize"
+            android:gravity="center"
+            android:text="TextView3"
+            android:textAlignment="center"
+            android:textStyle="bold" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -51,6 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:text="Download"
+            android:background="@drawable/button_border"
+            android:backgroundTint="#009688"
             android:layout_below="@+id/progressBar"/>
 
     </LinearLayout>

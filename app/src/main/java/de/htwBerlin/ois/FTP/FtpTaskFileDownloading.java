@@ -1,10 +1,12 @@
 package de.htwBerlin.ois.FTP;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -15,22 +17,33 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 import java.net.SocketException;
 
 import de.htwBerlin.ois.FileStructure.OhdmFile;
 
+/**
+ * Asynctask that downloads files from FTP Remote server
+ *
+ * @author morelly_t1
+ */
 public class FtpTaskFileDownloading extends AsyncTask<OhdmFile, Integer, Long> {
 
     private static final String TAG = "FtpTaskFileListing";
-    private FTPClient ftpClient;
-    private ProgressBar progressBar;
+    private static final String MAP_FILE_PATH = Environment.getExternalStorageDirectory().toString() + "/OHDM";
 
-    public FtpTaskFileDownloading(ProgressBar bar) {
-        this.progressBar = bar;
+    private WeakReference<ProgressBar> progressBar;
+    private WeakReference<Context> context;
+    private FTPClient ftpClient;
+
+    public FtpTaskFileDownloading(ProgressBar progressbar, Context context) {
+        this.progressBar = new WeakReference<ProgressBar>(progressbar);
+        this.context = new WeakReference<Context>(context);
     }
 
     @Override
     protected void onPreExecute() {
+        ProgressBar progressBar = this.progressBar.get();
         progressBar.setVisibility(View.VISIBLE);
         ftpClient = new FTPClient();
         super.onPreExecute();
@@ -49,23 +62,24 @@ public class FtpTaskFileDownloading extends AsyncTask<OhdmFile, Integer, Long> {
             boolean status = ftpClient.changeWorkingDirectory("ohdm");
             Log.i(TAG, "change working dir to ohdm: " + status);
 
-            File downloadFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), ohdmFile[0].getFilename());
+            File downloadFile = new File(MAP_FILE_PATH, ohdmFile[0].getFilename());
             OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadFile));
             InputStream inputStream = ftpClient.retrieveFileStream(ohdmFile[0].getFilename());
             byte[] bytesArray = new byte[4096];
 
-            Long total = 0L;
-            Long fileSize = ohdmFile[0].getFileSize();
-            int bytesRead = -1;
+            long total = 0;
+            int bytesRead;
+            double progress;
 
             while (-1 != (bytesRead = inputStream.read(bytesArray))) {
-                Log.i(TAG, "bytes read: " + bytesRead);
                 total += bytesRead;
+                progress = ((total * 100) / (ohdmFile[0].getFileSize() * 1024));
                 outputStream.write(bytesArray, 0, bytesRead);
-                publishProgress((int) (total * 100 / fileSize));
+                Log.i(TAG, "Download progress " + (int) progress);
+                publishProgress((int) progress);
             }
 
-            if (ftpClient.completePendingCommand()) Log.i(TAG, "File Download successfull");
+            if (ftpClient.completePendingCommand()) Log.i(TAG, "File Download successful");
 
             outputStream.close();
             inputStream.close();
@@ -89,10 +103,12 @@ public class FtpTaskFileDownloading extends AsyncTask<OhdmFile, Integer, Long> {
 
     @Override
     protected void onProgressUpdate(Integer... params) {
-        this.progressBar.setProgress(params[0]);
+        if (this.progressBar.get() != null) this.progressBar.get().setProgress(params[0]);
     }
 
     @Override
     protected void onPostExecute(Long params) {
+        Context context = this.context.get();
+        Toast.makeText(context, "Download Finished!", Toast.LENGTH_SHORT).show();
     }
 }
