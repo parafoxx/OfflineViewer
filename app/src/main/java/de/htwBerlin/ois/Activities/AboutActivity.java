@@ -37,11 +37,11 @@ public class AboutActivity extends AppCompatActivity {
                     case R.id.nav_about:
                         break;
                     case R.id.nav_navigation:
-                        Intent navigationIntent = new Intent(AboutActivity.this, MainActivity.class);
+                        Intent navigationIntent = new Intent(AboutActivity.this, NavigationActivity.class);
                         startActivity(navigationIntent);
                         break;
                     case R.id.nav_download:
-                        Intent downloadIntent = new Intent(AboutActivity.this, MapDowloadActivity.class);
+                        Intent downloadIntent = new Intent(AboutActivity.this, MapDownloadActivity.class);
                         startActivity(downloadIntent);
                         break;
                     case R.id.nav_home:
@@ -53,5 +53,30 @@ public class AboutActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.htwBerlin.ois.FileStructure.MapFileSingleton;
 import de.htwBerlin.ois.R;
 
@@ -148,33 +149,10 @@ public class HomeActivity extends AppCompatActivity {
                         startActivity(aboutIntent);
                         break;
                     case R.id.nav_navigation:
-                        if (mapFiles.size() == 0) {
-                            final AlertDialog alertDialog = new AlertDialog.Builder(HomeActivity.this).create();
-                            alertDialog.setTitle("No Map Files found!");
-                            alertDialog.setMessage("Either store map files in OHDM directory in internal Storage." +
-                                    " Or Download available maps (see Tab \"Maps\").");
-                            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                            alertDialog.show();
-                        } else {
-                            for (File file : mapFiles) {
-                                if (file.getName().equals(spinnerMapFile.getSelectedItem().toString())) {
-                                    Log.i(TAG, "User has choosen " + spinnerMapFile.getSelectedItem().toString());
-                                    Log.i(TAG, "using " + file.getName() + " as mapfile");
-                                    MapFileSingleton mapFile = MapFileSingleton.getInstance();
-                                    mapFile.setFile(file);
-                                }
-                            }
-                            Intent navigationIntent = new Intent(HomeActivity.this, MainActivity.class);
-                            startActivity(navigationIntent);
-                        }
+                        onClickSaveButton();
                         break;
                     case R.id.nav_download:
-                        Intent downloadIntent = new Intent(HomeActivity.this, MapDowloadActivity.class);
+                        Intent downloadIntent = new Intent(HomeActivity.this, MapDownloadActivity.class);
                         startActivity(downloadIntent);
                         break;
                 }
@@ -263,6 +241,34 @@ public class HomeActivity extends AppCompatActivity {
             break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @OnClick(R.id.buttonSave)
+    public void onClickSaveButton() {
+        if (mapFiles.size() == 0) {
+            final AlertDialog alertDialog = new AlertDialog.Builder(HomeActivity.this).create();
+            alertDialog.setTitle("No Map Files found!");
+            alertDialog.setMessage("Either store map files in OHDM directory in internal Storage." +
+                    " Or Download available maps (see Tab \"Maps\").");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        } else {
+            for (File file : mapFiles) {
+                if (file.getName().equals(spinnerMapFile.getSelectedItem().toString())) {
+                    Log.i(TAG, "User has choosen " + spinnerMapFile.getSelectedItem().toString());
+                    Log.i(TAG, "using " + file.getName() + " as mapfile");
+                    MapFileSingleton mapFile = MapFileSingleton.getInstance();
+                    mapFile.setFile(file);
+                }
+            }
+            Intent navigationIntent = new Intent(HomeActivity.this, NavigationActivity.class);
+            startActivity(navigationIntent);
         }
     }
 }

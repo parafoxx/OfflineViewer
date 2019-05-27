@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,11 +36,11 @@ public class BottomNavigationActivity extends AppCompatActivity {
                         startActivity(aboutIntent);
                         break;
                     case R.id.nav_navigation:
-                        Intent navigationIntent = new Intent(BottomNavigationActivity.this, MainActivity.class);
+                        Intent navigationIntent = new Intent(BottomNavigationActivity.this, NavigationActivity.class);
                         startActivity(navigationIntent);
                         break;
                     case R.id.nav_download:
-                        Intent downloadIntent = new Intent(BottomNavigationActivity.this, MapDowloadActivity.class);
+                        Intent downloadIntent = new Intent(BottomNavigationActivity.this, MapDownloadActivity.class);
                         startActivity(downloadIntent);
                         break;
                 }

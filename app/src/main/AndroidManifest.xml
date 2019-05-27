@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.BottomNavigationActivity"></activity>
-        <activity android:name=".Activities.MapDowloadActivity" />
+        <activity android:name=".Activities.MapDownloadActivity" />
         <activity android:name=".Activities.AboutActivity" />
         <activity android:name=".Activities.HomeActivity">
             <intent-filter>
@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.MainActivity" />
+        <activity android:name=".Activities.NavigationActivity" />
     </application>
 
 </manifest>
