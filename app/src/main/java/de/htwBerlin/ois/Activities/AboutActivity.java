@@ -23,7 +23,10 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
+        setUpBottomNavigation();
+    }
 
+    private void setUpBottomNavigation() {
         bottom_navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
         Menu menu = bottom_navigation.getMenu();
         MenuItem menuItem = menu.getItem(3);
