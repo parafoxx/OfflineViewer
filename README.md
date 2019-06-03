@@ -17,9 +17,8 @@ To avoid caching dozens of different zoom layers, vector tiles are being used.
 1. Clone this repository.
 2. [Install Android Studio](https://developer.android.com/sdk/index.html).
 3. [Downlaod Open Historical Data maps](http://www.ohdm.net/)
-4. Store them on your phones internal storage
-5. Import the project. Open Android Studio, click `Open an existing Android
+4. Import the project. Open Android Studio, click `Open an existing Android
    Studio project` and select the project. Gradle will build the project.
-6. Run the app. Click `Run > Run 'app'`. After the project builds you'll be
+5. Run the app. Click `Run > Run 'app'`. After the project builds you'll be
    prompted to build or launch an emulator. 
-7. Place your maps on the device storage. There should be a ```OHDM``` directory in the internal storage.
+6. Place your maps on the device storage. There should be a ```OHDM``` directory in the internal storage.

@@ -25,8 +25,8 @@ import de.htwBerlin.ois.FileStructure.OhdmFile;
 public class FtpTaskFileListing extends AsyncTask<Void, Void, String> {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy HH:mm");
-
     private static final String TAG = "FtpTaskFileListing";
+
     private ArrayList<OhdmFile> ohdmFiles;
     private FTPClient ftpClient;
     private AsyncResponse delegate;
@@ -88,7 +88,7 @@ public class FtpTaskFileListing extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         Context context = this.context.get();
-        if (ohdmFiles.size() > 0 )  Toast.makeText(context, "Download Service not available", Toast.LENGTH_SHORT).show();
+        if (ohdmFiles.size() == 0 )  Toast.makeText(context, "Download Service not available", Toast.LENGTH_SHORT).show();
         else                        Toast.makeText(context, "Found " + ohdmFiles.size()  + " maps!", Toast.LENGTH_SHORT).show();
         delegate.getOhdmFiles(this.ohdmFiles);
     }
