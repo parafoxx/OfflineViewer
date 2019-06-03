@@ -7,6 +7,7 @@ import android.support.design.bottomnavigation.LabelVisibilityMode;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
@@ -28,10 +29,10 @@ public class MapDownloadActivity extends AppCompatActivity {
 
     private static final String TAG = "MapDownloadActivity";
 
-    private static final String FTP_SERVER_IP = "78.31.65.32";
-    private static final Integer FTP_PORT = 21;
-    private static final String FTP_USER = "ohdm";
-    private static final String FTP_PASSWORD = "ohdmapp";
+    private static final String FTP_SERVER_IP = "";
+    private static final Integer FTP_PORT = 0;
+    private static final String FTP_USER = "";
+    private static final String FTP_PASSWORD = "";
 
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottom_navigation;
@@ -71,6 +72,10 @@ public class MapDownloadActivity extends AppCompatActivity {
      * Sets Listener for Buttom Navigation Bar
      */
     private void setUpBottomNavigation() {
+
+        Menu menu = bottom_navigation.getMenu();
+        MenuItem menuItem = menu.getItem(2);
+        menuItem.setChecked(true);
         bottom_navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
         bottom_navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
