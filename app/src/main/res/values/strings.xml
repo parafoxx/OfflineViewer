@@ -27,10 +27,14 @@
     <string name="Home_Usage">To view your own maps, simply move them to your mobile phone in the "OHDM" folder.
         Otherwise, you can view and download available maps in the "Maps" tab.</string>
 
-    <string name="About_Text">Open Historical Data Map (OHDM) stores annual Open Street Map (OSM) maps.
+    <string name="About_Text">.. stores annual Open Street Map (OSM) maps.
         This makes it the first system that can process historical maps.
         OHDM was founded in 2016 under the leadership of Prof. Schwotzer at the Hochschule für Technik und Wirtschaft in Berlin.
-        Since then, numerous final theses and Open Source projects based on them have been created.
+        Since then, numerous final theses and Open Source projects have been created on an OHDM basis.
+    </string>
+
+    <string name="About_APP">
+        .. was developed in 2019 by students during a course by Mr. Schwotzer. It shall serve as a prototype to display maps stored in OHDM for the first time.
     </string>
 
 </resources>
