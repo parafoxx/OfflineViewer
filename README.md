@@ -9,8 +9,8 @@
 
         
 ## Goal of this project
-The goal of this repository is to be to render [Open Street Maps](https://www.openstreetmap.de/), without the need of a network connection.
-To avoid caching dozens of different zoom layers, vector tiles are being used. 
+The goal of this repository is to render [Open Street Maps](https://www.openstreetmap.de/), without the need of a network connection.
+To avoid caching dozens of different zoom layers, vector tiles are being used. This makes the navigation and zoom interaction fast.
 
 ## Getting Started
 *Follow these instructions to build and run the OHDM Offline Viewer*
@@ -21,11 +21,12 @@ To avoid caching dozens of different zoom layers, vector tiles are being used.
    Studio project` and select the project. Gradle will build the project.
 5. Run the app. Click `Run > Run 'app'`. After the project builds you'll be
    prompted to build or launch an emulator. 
-6. Place your maps on the device storage. There should be a ```OHDM``` directory in the internal storage. 
+6. Open ```View > Tool Windows > Device File Explorer``` and place your maps on the device storage. There should be a ```OHDM``` directory in the internal storage. 
 
 ## Convert ```.osm``` to ```.map```-files
 Were using [osmosis](https://github.com/openstreetmap/osmosis) with the [mapsforge-map-writer-plugin](https://github.com/mapsforge/mapsforge/blob/master/docs/Getting-Started-Map-Writer.md)
 to conert ```.osm``` maps to ```.map```.
+
 In order to use ```osmosis```, just execute ```/osm2map/osm2map.sh``` as sudo.
 
 **The following code-block shows a successful execution:**
@@ -33,27 +34,12 @@ In order to use ```osmosis```, just execute ```/osm2map/osm2map.sh``` as sudo.
 user@host:~$ sudo bash osm2map.sh 
 
 Downloading osmosis to /opt/osmosis.
---2019-06-08 14:09:58--  https://bretth.dev.openstreetmap.org/osmosis-build/osmosis-0.46.tgz
-Resolving bretth.dev.openstreetmap.org (bretth.dev.openstreetmap.org)... 193.60.236.13
-Connecting to bretth.dev.openstreetmap.org (bretth.dev.openstreetmap.org)|193.60.236.13|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 11696810 (11M) [application/x-gzip]
-Saving to: ‘osmosis-0.46.tgz’
-
-osmosis-0.46.tgz             100%[===========================================>]  11,15M  5,39MB/s    in 2,1s    
-
-2019-06-08 14:10:00 (5,39 MB/s) - ‘osmosis-0.46.tgz’ saved [11696810/11696810]
-
-bin/
 ...
 
 Downloading mapwriter plugin /opt/osmosis.
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100 6170k  100 6170k    0     0  3177k      0  0:00:01  0:00:01 --:--:-- 3175k
+...
 
 Download and build successful finished.
-
 	
 osmosis usage:
     /opt/osmosis/bin/osmosis --rb file=path-to-osm-file.osm --mw file=destination-path-map-file.map
