@@ -57,12 +57,8 @@ This makes it possible to host various map files on a remote server.
 You then can easily download them using the app. 
 The following steps will guide you through the installation and configuration:
 
-**WARNING**
-
-At this point of development, the download center is a simple FTP server that does not meet any security requirements.
+**WARNING: ** At this point of development, the download center is a simple FTP server that does not meet any security requirements.
 Using it in productivity, will make your server extremely vulnerable.
-
-**WARNING**
 
 
 ### Prerequisites
@@ -73,21 +69,36 @@ Go through the [official documentation](https://docs.docker.com/install/) in ord
 ### Build 
 Open ```map-file-download-center/docker-compose.yml``` and change the ```environment``` vairables to your needs:
 ```
-environment:
-  FTP_USER: ohdm
-  FTP_PASSWORD: ohdm
-  FTP_USERS_ROOT: 
+version: "3.3"
+services:
+  vsftpd:
+    container_name: vsftpd
+    image: panubo/vsftpd
+    ports:
+      - "21:21"
+      - "4559-4564:4559-4564"
+    restart: always
+    environment:
+      FTP_USER: ohdm
+      FTP_PASSWORD: ohdm
+      FTP_USERS_ROOT: 
+    network_mode: "host"
+    volumes:
+      - /opt/ohdm:/srv/ohdm
+
 ```
 
 Now you can start the container with
 
 ```
+sudo mkdir -p /opt/ohdm
 docker-compose up
 ```
 
 If successful, you should see 
 
 ```
+...
 vsftpd    | Received SIGINT or SIGTERM. Shutting down vsftpd
 vsftpd    | Running vsftpd
 ``` 
@@ -95,15 +106,17 @@ at the end of the output.
 Great, now you can begin to adjust the source code to point the app to your ftp server
 
 ### Configure 
-Open the file ```/app/src/main/java/de/htwBerlin/ois/Activities/MapDownloadActivity.java```:
+Open the file ```app/src/main/java/de/htwBerlin/ois/Activities/MapDownloadActivity.java```:
 
 and change the parameter with the values you jus used in the ```docker-compose``` file.:
 
 ``` 
+...
 private static final String FTP_SERVER_IP = "";
 private static final Integer FTP_PORT = 21;
 private static final String FTP_USER = "";
 private static final String FTP_PASSWORD = "";
+...
 ```
 
 ### Deploy
@@ -111,7 +124,7 @@ Just install the application on your device with Android Studio.
 
 In order to host ```map```-files on the FTP server, just copy the files to ```/opt/ohdm/```
 
-You then should the listed files in the ```Maps``` tab.
+You then should see the listed files in the ```Maps``` tab.
 
 You can start the container with ```docker-compose up -d``` in background.
 
