@@ -1,10 +1,12 @@
 package de.htwBerlin.ois.FTP;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -15,24 +17,33 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 import java.net.SocketException;
 
 import de.htwBerlin.ois.FileStructure.OhdmFile;
 
+/**
+ * Asynctask that downloads files from FTP Remote server
+ *
+ * @author morelly_t1
+ */
 public class FtpTaskFileDownloading extends AsyncTask<OhdmFile, Integer, Long> {
 
     private static final String TAG = "FtpTaskFileListing";
-    private static final String MAP_FILE_PATH = Environment.getExternalStorageDirectory().toString()+"/osmdroid/";
+    private static final String MAP_FILE_PATH = Environment.getExternalStorageDirectory().toString() + "/OHDM";
 
+    private WeakReference<ProgressBar> progressBar;
+    private WeakReference<Context> context;
     private FTPClient ftpClient;
-    private ProgressBar progressBar;
 
-    public FtpTaskFileDownloading(ProgressBar bar) {
-        this.progressBar = bar;
+    public FtpTaskFileDownloading(ProgressBar progressbar, Context context) {
+        this.progressBar = new WeakReference<ProgressBar>(progressbar);
+        this.context = new WeakReference<Context>(context);
     }
 
     @Override
     protected void onPreExecute() {
+        ProgressBar progressBar = this.progressBar.get();
         progressBar.setVisibility(View.VISIBLE);
         ftpClient = new FTPClient();
         super.onPreExecute();
@@ -58,7 +69,7 @@ public class FtpTaskFileDownloading extends AsyncTask<OhdmFile, Integer, Long> {
 
             long total = 0;
             int bytesRead;
-            double progress = 0;
+            double progress;
 
             while (-1 != (bytesRead = inputStream.read(bytesArray))) {
                 total += bytesRead;
@@ -92,10 +103,12 @@ public class FtpTaskFileDownloading extends AsyncTask<OhdmFile, Integer, Long> {
 
     @Override
     protected void onProgressUpdate(Integer... params) {
-        this.progressBar.setProgress(params[0]);
+        if (this.progressBar.get() != null) this.progressBar.get().setProgress(params[0]);
     }
 
     @Override
     protected void onPostExecute(Long params) {
+        Context context = this.context.get();
+        Toast.makeText(context, "Download Finished!", Toast.LENGTH_SHORT).show();
     }
 }
