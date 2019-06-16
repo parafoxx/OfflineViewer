@@ -34,7 +34,7 @@ function install_mapwriter_plugin(){
 function osmosis_usage(){
 	echo -e "
 	\nosmosis usage:
-	/opt/osmosis/bin/osmosis --rb file=path-to-osm-file.osm --mw file=destination-path-map-file.map
+	/opt/osmosis/bin/osmosis --rx file=path-to-osm-file.osm --mw file=destination-path-map-file.map
 	"
 }
 
