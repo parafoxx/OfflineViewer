@@ -42,13 +42,13 @@ Downloading mapwriter plugin /opt/osmosis.
 Download and build successful finished.
 	
 osmosis usage:
-    /opt/osmosis/bin/osmosis --rb file=path-to-osm-file.osm --mw file=destination-path-map-file.map
+    /opt/osmosis/bin/osmosis --rx file=path-to-osm-file.osm --mw file=destination-path-map-file.map
 
 ```
 
 Then you can begin to convert your own ```map-files``` with:
 ```
-/opt/osmosis/bin/osmosis --rb file=path-to-osm-file.osm --mw file=destination-path-map-file.map
+/opt/osmosis/bin/osmosis --rx file=path-to-osm-file.osm --mw file=destination-path-map-file.map
 ```
 
 ## Use custom map-file download center
