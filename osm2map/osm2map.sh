@@ -1,10 +1,10 @@
-#!/usr/bin/env
+#!/usr/bin/env bash
 #
-# Use case: Installs osmosis, mapsforge-mapfile-writer plugin
-# Author:   Tom Morelly
-# Date:     2019.06.08
+# 	Use case: Installs osmosis, mapsforge-mapfile-writer plugin
+# 	Author:   Tom Morelly
+# 	Date:     2019.06.08
 #
-########################################
+##########################################################################
 
 set -e
 OSMOSIS_DOWNLOAD_URL="https://bretth.dev.openstreetmap.org/osmosis-build/osmosis-0.46.tgz"
@@ -46,7 +46,7 @@ function main(){
 
 	echo -e "\n${GREEN}Downloading osmosis to $OUTPUT_PATH/osmosis.${NC}"
 	install_osmosis;
-    echo -e "\n${GREEN}Downloading mapwriter plugin $OUTPUT_PATH/osmosis.${NC}"
+    	echo -e "\n${GREEN}Downloading mapwriter plugin $OUTPUT_PATH/osmosis.${NC}"
 	install_mapwriter_plugin;
 	echo -e "\n${GREEN}Download and build successful finished.${NC}"
 	osmosis_usage
