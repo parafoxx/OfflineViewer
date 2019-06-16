@@ -30,7 +30,7 @@ public class MapDownloadActivity extends AppCompatActivity {
     private static final String TAG = "MapDownloadActivity";
 
     private static final String FTP_SERVER_IP = "";
-    private static final Integer FTP_PORT = 0;
+    private static final Integer FTP_PORT = 21;
     private static final String FTP_USER = "";
     private static final String FTP_PASSWORD = "";
 
