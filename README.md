@@ -69,6 +69,8 @@ Go through the [official documentation](https://docs.docker.com/install/) in ord
 
 ### Build 
 Open ```map-file-download-center/docker-compose.yml``` and change the ```environment``` vairables to your needs:
+In this example, every file in `/opt/ohdm/` will be shown in the android application.
+
 ```
 version: "3.3"
 services:
