@@ -69,7 +69,7 @@ Go through the [official documentation](https://docs.docker.com/install/) in ord
 
 ### Build 
 Open ```map-file-download-center/docker-compose.yml``` and change the ```environment``` vairables to your needs:
-In this example, every file in `/opt/ohdm/` will be shown in the android application.
+In this example, every file in `/opt/ohdm/` will be shown in the android application. Make sure, that there are actually `map-files` in the directory you specified under `volumes` in the `docker-compose.yml`.
 
 ```
 version: "3.3"
@@ -94,7 +94,6 @@ services:
 Now you can start the container with
 
 ```
-sudo mkdir -p /opt/ohdm
 docker-compose up
 ```
 
@@ -111,7 +110,7 @@ Great, now you can begin to adjust the source code to point the app to your ftp 
 ### Configure 
 Open the file ```app/src/main/java/de/htwBerlin/ois/Activities/MapDownloadActivity.java```:
 
-and change the parameter with the values you jus used in the ```docker-compose``` file.:
+and change the parameter with the values you just used in the ```docker-compose``` file:
 
 ``` 
 ...
@@ -123,7 +122,7 @@ private static final String FTP_PASSWORD = "";
 ```
 
 ### Deploy
-Just install the application on your device with Android Studio.
+Just install the application again on your device with Android Studio.
 
 In order to host ```map```-files on the FTP server, just copy the files to ```/opt/ohdm/```
 
