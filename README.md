@@ -22,7 +22,7 @@ To avoid caching dozens of different zoom layers, vector tiles are being used. T
 4. Connect your Android Device with your Computer
 5. Run the app. Click `Run > Run 'app'`. After the project builds you'll be
    prompted to build or launch an emulator. You then can choose your mobile phone. 
-6. Open ```View > Tool Windows > Device File Explorer``` and place your maps your mobile phone device storage. There should be a ```OHDM``` directory in the internal storage. 
+6. Open ```View > Tool Windows > Device File Explorer``` and place your maps your mobile phone device storage. There should be a ```OHDM``` (In the android emulator, you may have to create it: `Device Explorerer > sdcard > New`) directory in the internal storage. 
 
 ## Convert ```.osm``` to ```.map```-files
 Were using [osmosis](https://github.com/openstreetmap/osmosis) with the [mapsforge-map-writer-plugin](https://github.com/mapsforge/mapsforge/blob/master/docs/Getting-Started-Map-Writer.md)
