@@ -62,12 +62,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
-        createOhdmDirectory();
-
         fillDropDownFiles();
-
         setUpBottomNavigation();
-
         checkPermissions();
     }
 
@@ -128,7 +124,7 @@ public class HomeActivity extends AppCompatActivity {
                     maps.add(osmfile);
                 }
             }
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Log.i(TAG, "No map files located.");
         }
         return maps;
@@ -167,10 +163,10 @@ public class HomeActivity extends AppCompatActivity {
      */
     private void checkPermissions() {
         List<String> permissions = new ArrayList<>();
-        String message = "OSMDroid permissions:";
+        String message = "OHDM Offline Viewer permissions:";
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
-            message += "\nStorage access to store map tiles.";
+            message += "\nStorage access to store map Files.";
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -219,10 +215,8 @@ public class HomeActivity extends AppCompatActivity {
                 perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
                 perms.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
 
-
                 for (int i = 0; i < permissions.length; i++)
                     perms.put(permissions[i], grantResults[i]);
-
 
                 Boolean location = perms.get(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                 Boolean storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
@@ -230,13 +224,14 @@ public class HomeActivity extends AppCompatActivity {
                 if (location && storage) {
                     Toast.makeText(HomeActivity.this, "All permissions granted", Toast.LENGTH_SHORT).show();
                 } else if (location) {
-                    Toast.makeText(this, "Storage permission is required to store map tiles to reduce data usage and for offline usage.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Storage permission is required to store map files to reduce data usage and for offline usage.", Toast.LENGTH_LONG).show();
                 } else if (storage) {
                     Toast.makeText(this, "Location permission is required to show the user's location on map.", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(HomeActivity.this, "Storage permission is required to store map tiles to reduce data usage and for offline usage." +
                             "\nLocation permission is required to show the user's location on map.", Toast.LENGTH_SHORT).show();
                 }
+                createOhdmDirectory();
             }
             break;
             default:
