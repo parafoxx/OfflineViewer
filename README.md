@@ -19,14 +19,14 @@ To avoid caching dozens of different zoom layers, vector tiles are being used. T
 3. [Downlaod Open Historical Data maps](http://www.ohdm.net/)
 4. Import the project. Open Android Studio, click `Open an existing Android
    Studio project` and select the project. Gradle will build the project.
-4. Connect your Android Device with your Computer
+4. Connect your Android Device with your Computer.
 5. Run the app. Click `Run > Run 'app'`. After the project builds you'll be
    prompted to build or launch an emulator. You then can choose your mobile phone. 
-6. Open ```View > Tool Windows > Device File Explorer``` and place your maps your mobile phone device storage. There should be a ```OHDM``` (In the android emulator, you may have to create it: `Device Explorerer > sdcard > New`) directory in the internal storage. 
+6. Open ```View > Tool Windows > Device File Explorer``` and place your maps in your mobile phone device storage. There should be a ```OHDM``` (In the android emulator, you may have to create it: `Device Explorerer > sdcard > New`) directory in the internal storage. 
 
 ## Convert ```.osm``` to ```.map```-files
-Were using [osmosis](https://github.com/openstreetmap/osmosis) with the [mapsforge-map-writer-plugin](https://github.com/mapsforge/mapsforge/blob/master/docs/Getting-Started-Map-Writer.md)
-to conert ```.osm``` maps to ```.map```.
+We're using [osmosis](https://github.com/openstreetmap/osmosis) with the [mapsforge-map-writer-plugin](https://github.com/mapsforge/mapsforge/blob/master/docs/Getting-Started-Map-Writer.md)
+to convert ```.osm``` maps to ```.map```.
 
 In order to use ```osmosis```, just execute ```/osm2map/osm2map.sh``` as sudo.
 
@@ -41,7 +41,7 @@ Downloading mapwriter plugin /opt/osmosis.
 ...
 
 Download and build successful finished.
-	
+  
 osmosis usage:
     /opt/osmosis/bin/osmosis --rx file=path-to-osm-file.osm --mw file=destination-path-map-file.map
 
@@ -63,12 +63,12 @@ Using it in productivity, will make your server extremely vulnerable.
 
 
 ### Prerequisites
-Were using ```docker``` and ```docker-compose``` to build the FTP server.
+We're using ```docker``` and ```docker-compose``` to run the FTP server.
 
 Go through the [official documentation](https://docs.docker.com/install/) in order to get both components installed.
 
 ### Build 
-Open ```map-file-download-center/docker-compose.yml``` and change the ```environment``` vairables to your needs:
+Open ```map-file-download-center/docker-compose.yml``` and change the ```environment``` variables to your needs:
 In this example, every file in `/opt/ohdm/` will be shown in the android application. Make sure, that there are actually `map-files` in the directory you specified under `volumes` in the `docker-compose.yml`.
 
 ```
