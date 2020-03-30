@@ -1,10 +1,10 @@
 package de.htwBerlin.ois.Activities;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +29,7 @@ public class AboutActivity extends AppCompatActivity {
     private void setUpBottomNavigation() {
         bottom_navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
         Menu menu = bottom_navigation.getMenu();
-        MenuItem menuItem = menu.getItem(3);
+        MenuItem menuItem = menu.getItem(4);
         menuItem.setChecked(true);
 
         bottom_navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -50,6 +50,10 @@ public class AboutActivity extends AppCompatActivity {
                     case R.id.nav_home:
                         Intent startIntent = new Intent(AboutActivity.this, HomeActivity.class);
                         startActivity(startIntent);
+                        break;
+                    case R.id.nav_request:
+                        Intent requestIntent = new Intent(AboutActivity.this, MapRequestActivity.class);
+                        startActivity(requestIntent);
                         break;
 
                 }

@@ -36,5 +36,16 @@
     <string name="About_APP">
         .. was developed in 2019 by students during a course by Mr. Schwotzer. It shall serve as a prototype to display maps stored in OHDM for the first time.
     </string>
+    <string name="map_reqeust_description">Request map with specific values. Enter the coordinates and a date and the map will be generated</string>
+    <string name="x1">x1</string>
+    <string name="x2">x2</string>
+    <string name="y1">y1</string>
+    <string name="y2">y2</string>
+    <string name="x3">x3</string>
+    <string name="y3">y3</string>
+    <string name="y4">y4</string>
+    <string name="date_e_g_2016_12_31">date e.g. 2016-12-31</string>
+    <string name="name_e_g_berlin_city_2017_01_01">name e.g. berlin-city-2017-01-01</string>
+    <string name="x4">x4</string>
 
 </resources>

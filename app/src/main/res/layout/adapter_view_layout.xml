@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/tvFileName"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="111dp"
         android:layout_weight="66.6"
         android:gravity="center"
         android:text="TextView1"
@@ -18,10 +18,10 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="33.3">
+        android:layout_height="112dp"
+        android:layout_weight="33.3"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvFileSize"
@@ -46,19 +46,19 @@
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCreationDate"
             android:visibility="invisible"
-            tools:visibility="invisible"
-            android:layout_below="@+id/tvCreationDate"/>
+            tools:visibility="invisible" />
 
         <Button
             android:id="@+id/buttonDownloadFile"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:text="Download"
+            android:layout_below="@+id/progressBar"
             android:background="@drawable/button_border"
             android:backgroundTint="#009688"
-            android:layout_below="@+id/progressBar"/>
+            android:text="Download" />
 
     </LinearLayout>
 

@@ -1,9 +1,9 @@
 package de.htwBerlin.ois.Activities;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +42,10 @@ public class BottomNavigationActivity extends AppCompatActivity {
                     case R.id.nav_download:
                         Intent downloadIntent = new Intent(BottomNavigationActivity.this, MapDownloadActivity.class);
                         startActivity(downloadIntent);
+                        break;
+                    case R.id.nav_request:
+                        Intent requestIntent = new Intent(BottomNavigationActivity.this, MapRequestActivity.class);
+                        startActivity(requestIntent);
                         break;
                 }
                 return false;

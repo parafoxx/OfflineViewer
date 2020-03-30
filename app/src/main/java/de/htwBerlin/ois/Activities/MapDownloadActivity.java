@@ -2,10 +2,10 @@ package de.htwBerlin.ois.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,10 +29,10 @@ public class MapDownloadActivity extends AppCompatActivity {
 
     private static final String TAG = "MapDownloadActivity";
 
-    private static final String FTP_SERVER_IP = "";
+    private static final String FTP_SERVER_IP = "141.45.146.117";
     private static final Integer FTP_PORT = 21;
-    private static final String FTP_USER = "";
-    private static final String FTP_PASSWORD = "";
+    private static final String FTP_USER = "ohdm";
+    private static final String FTP_PASSWORD = "ohdm";
 
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottom_navigation;
@@ -93,6 +93,10 @@ public class MapDownloadActivity extends AppCompatActivity {
                     case R.id.nav_home:
                         Intent startIntent = new Intent(MapDownloadActivity.this, HomeActivity.class);
                         startActivity(startIntent);
+                        break;
+                    case R.id.nav_request:
+                        Intent requestIntent = new Intent(MapDownloadActivity.this, MapRequestActivity.class);
+                        startActivity(requestIntent);
                         break;
                 }
                 return false;

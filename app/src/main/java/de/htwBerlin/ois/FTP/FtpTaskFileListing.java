@@ -88,7 +88,7 @@ public class FtpTaskFileListing extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         Context context = this.context.get();
-        if (ohdmFiles.size() == 0 )  Toast.makeText(context, "Download Service not available", Toast.LENGTH_SHORT).show();
+        if (ohdmFiles.size() == 0 )  Toast.makeText(context, "No maps available", Toast.LENGTH_SHORT).show();
         else                        Toast.makeText(context, "Found " + ohdmFiles.size()  + " maps!", Toast.LENGTH_SHORT).show();
         delegate.getOhdmFiles(this.ohdmFiles);
     }

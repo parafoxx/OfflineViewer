@@ -16,10 +16,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.BottomNavigationActivity"></activity>
         <activity android:name=".Activities.MapDownloadActivity" />
         <activity android:name=".Activities.AboutActivity" />
+        <activity android:name=".Activities.MapRequestActivity" />
         <activity android:name=".Activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

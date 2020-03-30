@@ -7,11 +7,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.design.bottomnavigation.LabelVisibilityMode;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -150,6 +150,10 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.nav_download:
                         Intent downloadIntent = new Intent(HomeActivity.this, MapDownloadActivity.class);
                         startActivity(downloadIntent);
+                        break;
+                    case R.id.nav_request:
+                        Intent requestIntent = new Intent(HomeActivity.this, MapRequestActivity.class);
+                        startActivity(requestIntent);
                         break;
                 }
                 return false;
